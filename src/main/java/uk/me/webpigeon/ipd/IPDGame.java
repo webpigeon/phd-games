@@ -6,9 +6,9 @@ import uk.me.webpigeon.games.GameMove;
 
 public class IPDGame extends AbstractGame {
 	// the legal game moves
-	private static final GameMove COOP = new GameMove(0, "co-op");
-	private static final GameMove DEFECT = new GameMove(0, "defect");
-	private static final GameMove[] moves = new GameMove[] {
+	public static final GameMove COOP = new GameMove(0, "co-op");
+	public static final GameMove DEFECT = new GameMove(0, "defect");
+	public static final GameMove[] MOVES = new GameMove[] {
 		COOP,
 		DEFECT
 	};
@@ -27,8 +27,8 @@ public class IPDGame extends AbstractGame {
 	
 	@Override
 	public Double[] playRound(Agent agent1, Agent agent2) {
-		GameMove p1Move = agent1.getMove(moves);
-		GameMove p2Move = agent2.getMove(moves);
+		GameMove p1Move = agent1.getMove(MOVES);
+		GameMove p2Move = agent2.getMove(MOVES);
 		
 		Double[] scores = payoffs[p1Move.getID()][p2Move.getID()];
 		agent1.onRoundEnd(p1Move, p2Move, scores[0]);
