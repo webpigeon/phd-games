@@ -1,13 +1,13 @@
 package uk.me.webpigeon.rps;
 
-public interface RpsAgent {
+import uk.me.webpigeon.games.Agent;
 
-	public String getName();
-
-	public Move getMove();
+public abstract class RpsAgent implements Agent {
 	
-	public void onGameOver(Move player1, Move player2, int playerID, WinningPlayer winner);
-
-	public void newOpponent();
+	public abstract String getName();
 	
+	public String toString() {
+		return "rps-"+getName();
+	}
+
 }

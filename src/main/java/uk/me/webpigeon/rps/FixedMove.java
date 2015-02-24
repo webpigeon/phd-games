@@ -1,9 +1,11 @@
 package uk.me.webpigeon.rps;
 
-public class FixedMove implements RpsAgent {
-	private final Move move;
+import uk.me.webpigeon.games.GameMove;
 
-	public FixedMove(Move move){
+public class FixedMove extends RpsAgent {
+	private final GameMove move;
+
+	public FixedMove(GameMove move){
 		this.move = move;
 	}
 	
@@ -13,21 +15,17 @@ public class FixedMove implements RpsAgent {
 	}
 
 	@Override
-	public Move getMove() {
+	public GameMove getMove(GameMove[] moves) {
 		return move;
 	}
-	
-	public String toString() {
-		return "rps-"+getName();
+
+	@Override
+	public void onGameStart() {
+
 	}
 
 	@Override
-	public void onGameOver(Move player1, Move player2, int playerID, WinningPlayer player) {
-		
-	}
-
-	@Override
-	public void newOpponent() {
+	public void onRoundEnd(GameMove ours, GameMove theirs, double score) {
 		
 	}
 

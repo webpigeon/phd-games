@@ -2,7 +2,9 @@ package uk.me.webpigeon.rps;
 
 import java.util.Random;
 
-public class RandomMove implements RpsAgent {
+import uk.me.webpigeon.games.GameMove;
+
+public class RandomMove extends RpsAgent {
 	private Random random;
 	
 	public RandomMove() {
@@ -14,22 +16,23 @@ public class RandomMove implements RpsAgent {
 		return "random";
 	}
 
-	@Override
-	public Move getMove() {
-		Move[] moves = Move.values();
-		return moves[random.nextInt(moves.length)];
-	}
-
 	public String toString() {
 		return "rps-"+getName();
 	}
 
 	@Override
-	public void onGameOver(Move player1, Move player2, int playerID, WinningPlayer player) {
+	public GameMove getMove(GameMove[] moves) {
+		return moves[random.nextInt(moves.length)];
 	}
 
 	@Override
-	public void newOpponent() {
+	public void onGameStart() {
+		
+	}
+
+	@Override
+	public void onRoundEnd(GameMove ours, GameMove theirs, double score) {
+		
 	}
 	
 }

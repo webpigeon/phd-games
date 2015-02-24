@@ -1,11 +1,12 @@
 package uk.me.webpigeon.rps;
 
-public class FrequencyBlocker implements RpsAgent {
+import uk.me.webpigeon.games.GameMove;
+
+public class FrequencyBlocker extends RpsAgent {
 	private int[] freqs;
 	
-	public FrequencyBlocker(){
-		Move[] m = Move.values();
-		this.freqs = new int[m.length];
+	public FrequencyBlocker(GameMove[] moves){
+		this.freqs = new int[moves.length];
 	}
 
 	@Override
@@ -13,9 +14,17 @@ public class FrequencyBlocker implements RpsAgent {
 		return "freqblock";
 	}
 
+	public String toString() {
+		return "rps-"+getName();
+	}
+	
+	public GameMove getOppMove(GameMove curr, GameMove[] legalMoves) {
+		int inverse = (curr.getID() + 1) % legalMoves.length;
+		return legalMoves[inverse];
+	}
+
 	@Override
-	public Move getMove() {
-		
+	public GameMove getMove(GameMove[] moves) {
 		int bestOpt = 0;
 		int bestFreq = 0;
 		
@@ -26,29 +35,18 @@ public class FrequencyBlocker implements RpsAgent {
 			}
 		}
 		
-		Move[] moves = Move.values();
-		Move oppBestMove = moves[bestOpt];
-		return getOppMove(oppBestMove);
+		GameMove oppBestMove = moves[bestOpt];
+		return getOppMove(oppBestMove, moves);
 	}
 
 	@Override
-	public void onGameOver(Move player1, Move player2, int playerID, WinningPlayer winner) {
-		Move oppMove = playerID==1?player2:player1;
-		freqs[oppMove.ordinal()]++;
+	public void onGameStart() {
+		this.freqs = new int[freqs.length];
 	}
 
 	@Override
-	public void newOpponent() {
-		Move[] m = Move.values();
-		this.freqs = new int[m.length];
+	public void onRoundEnd(GameMove ours, GameMove theirs, double score) {
+		freqs[theirs.getID()]++;
 	}
 
-	public String toString() {
-		return "rps-"+getName();
-	}
-	
-	public Move getOppMove(Move curr) {
-		int inverse = (curr.ordinal() + 1) % 3;
-		return Move.values()[inverse];
-	}
 }

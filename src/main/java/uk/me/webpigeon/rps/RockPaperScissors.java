@@ -1,98 +1,61 @@
 package uk.me.webpigeon.rps;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import uk.me.webpigeon.games.AbstractGame;
+import uk.me.webpigeon.games.Agent;
+import uk.me.webpigeon.games.GameMove;
 
-import uk.me.webpigeon.stats.RoundStats;
-import uk.me.webpigeon.stats.SimpleStats;
-import uk.me.webpigeon.stats.StatsPackage;
-
-public class RockPaperScissors {
-	private List<RpsAgent> agents;
+public class RockPaperScissors extends AbstractGame {
+	public static final GameMove ROCK = new GameMove(0, "rock");
+	public static final GameMove PAPER = new GameMove(1, "paper");
+	public static final GameMove SCISSORS = new GameMove(2, "scissors");
+	public static final GameMove[] moves = new GameMove[]{ROCK,PAPER,SCISSORS};
 	
-	public RockPaperScissors() {
-		this.agents = new ArrayList<>();
-	}
-	
-	public void addAgent(RpsAgent agent) {
-		agents.add(agent);
-	}
-	
-	public List<RoundStats> getStats(int rounds){
-		
-		List<RoundStats> statsList = new ArrayList<>();
-		
-		for (RpsAgent player1 : agents) {
-			for (RpsAgent player2 : agents) {
-				
-				RoundStats stats = new RoundStats();
-				stats.player1 = player1;
-				stats.player2 = player2;
-				
-				int[] results = playRounds(player1, player2, rounds);
-				
-				// get our stats
-				stats.player1Wins = results[WinningPlayer.Player1.ordinal()];
-				stats.player2Wins = results[WinningPlayer.Player2.ordinal()];
-				stats.draws = results[WinningPlayer.Draw.ordinal()];
-				
-				statsList.add(stats);
-			}
-			
-		}
-
-		return statsList;
-	}
-	
-	
-	public int[] playRounds(RpsAgent p1, RpsAgent p2, int rounds) {
-		WinningPlayer[] outcomes = WinningPlayer.values();
-		int[] scores = new int[outcomes.length];
-		
-		p1.newOpponent();
-		p2.newOpponent();
-		
-		for (int i=0; i<rounds; i++){
-			WinningPlayer result = playRound(p1, p2);
-			scores[result.ordinal()]++;
-		}
-		
-		return scores;
-	}
-	
-	public WinningPlayer playRound(RpsAgent p1, RpsAgent p2) {
-		Move p1Move = p1.getMove();
-		Move p2Move = p2.getMove();
-		WinningPlayer winner = getWinner(p1Move, p2Move);
-		
-		p1.onGameOver(p1Move, p2Move, 1, winner);
-		p2.onGameOver(p1Move, p2Move, 2, winner);
-		
-		System.out.println("[G] "+p1+","+p2+": "+p1Move+" "+p2Move);
-		
-		return winner;
-	}
-	
-	public WinningPlayer getWinner(Move player1, Move player2) {		
-		if (player1.equals(player2)) {
+	public WinningPlayer getWinner(GameMove p1Move, GameMove p2Move) {		
+		if (p1Move.equals(p2Move)) {
 			return WinningPlayer.Draw;
 		}
 		
-		if (player1.ordinal() == 0 && player2.ordinal() == 2) {
+		if (p1Move.isMove("rock") && p2Move.isMove("scissors")) {
 			return WinningPlayer.Player1;
 		}
 		
-		if (player1.ordinal() == 1 && player2.ordinal() == 0) {
+		if (p1Move.isMove("paper") && p2Move.isMove("rock")) {
 			return WinningPlayer.Player1;
 		}
 		
-		if (player1.ordinal() == 2 && player2.ordinal() == 1) {
+		if (p1Move.isMove("scissors") && p2Move.isMove("paper")) {
 			return WinningPlayer.Player1;
 		}
 		
 		return WinningPlayer.Player2;
+	}
+
+	@Override
+	public Double[] playRound(Agent agent1, Agent agent2) {
+		GameMove p1Move = agent1.getMove(moves);
+		GameMove p2Move = agent2.getMove(moves);
+		WinningPlayer winner = getWinner(p1Move, p2Move);
+		
+		double p1Score = 0;
+		double p2Score = 0;
+		if (WinningPlayer.Player1 == winner) {
+			p1Score = 1;
+			p2Score = -1;
+		} else if (WinningPlayer.Player2 == winner) {
+			p1Score = -1;
+			p2Score = 1;
+		} else {
+			//it's a draw
+			p1Score = 0;
+			p1Score = 0;
+		}
+		
+		agent1.onRoundEnd(p1Move, p2Move, p1Score);
+		agent2.onRoundEnd(p2Move, p1Move, p2Score);
+		
+		System.out.println("[G] "+agent1+","+agent2+": "+p1Move+" "+p2Move);
+		
+		return new Double[]{p1Score, p2Score};
 	}
 	
 
