@@ -5,29 +5,14 @@ import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.List;
 
-import uk.me.webpigeon.rps.FixedMove;
-import uk.me.webpigeon.rps.FrequencyBlocker;
-import uk.me.webpigeon.rps.RockPaperScissors;
-import uk.me.webpigeon.rps.RotationPlayer;
-import uk.me.webpigeon.rps.UCBPlayer;
 import uk.me.webpigeon.stats.TwoPlayerStats;
 
 public class RunGames {
+	public static final Integer ROUNDS_PER_GAME = 1000;
 	
 	public static void main(String[] args) throws FileNotFoundException {
-		Game rps = new RockPaperScissors();
-		rps.addAgent(new FixedMove(RockPaperScissors.ROCK));
-		rps.addAgent(new FixedMove(RockPaperScissors.PAPER));
-		rps.addAgent(new FixedMove(RockPaperScissors.SCISSORS));
-		rps.addAgent(new RotationPlayer(1));
-		rps.addAgent(new RotationPlayer(2));
-		rps.addAgent(new RotationPlayer(3));
-		//rps.addAgent(new RandomMove());
-		rps.addAgent(new UCBPlayer(2.0, RockPaperScissors.moves));
-		rps.addAgent(new FrequencyBlocker(RockPaperScissors.moves));
-		
-		//generate stats and dump them to csv
-		List<TwoPlayerStats> statsList = rps.getStats(1000);
+		Game game = GameFactory.buildIPD();
+		List<TwoPlayerStats> statsList = game.getStats(ROUNDS_PER_GAME);
 		toCsvFile("test.csv",statsList);
 		
 		System.out.println(statsList);

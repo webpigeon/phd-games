@@ -7,17 +7,17 @@ import uk.me.webpigeon.games.GameMove;
 public class IPDGame extends AbstractGame {
 	// the legal game moves
 	public static final GameMove COOP = new GameMove(0, "co-op");
-	public static final GameMove DEFECT = new GameMove(0, "defect");
+	public static final GameMove DEFECT = new GameMove(1, "defect");
 	public static final GameMove[] MOVES = new GameMove[] {
 		COOP,
 		DEFECT
 	};
 	
 	//payoff names
-	private final static Double T = 10.0;
-	private final static Double R = 7.0;
-	private final static Double P = 5.0;
-	private final static Double S = 2.0;
+	private final static Double T = 3.0;
+	private final static Double R = 2.0;
+	private final static Double P = 1.0;
+	private final static Double S = 0.0;
 
 	//payoff list
 	private final Double[][][] payoffs = {
