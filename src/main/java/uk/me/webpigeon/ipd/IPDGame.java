@@ -3,7 +3,6 @@ package uk.me.webpigeon.ipd;
 import uk.me.webpigeon.games.AbstractGame;
 import uk.me.webpigeon.games.Agent;
 import uk.me.webpigeon.games.GameMove;
-import uk.me.webpigeon.rps.WinningPlayer;
 
 public class IPDGame extends AbstractGame {
 	// the legal game moves

@@ -1,10 +1,8 @@
 package uk.me.webpigeon.games;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import uk.me.webpigeon.rps.WinningPlayer;
 import uk.me.webpigeon.stats.TwoPlayerStats;
 
 /**

@@ -1,13 +1,10 @@
 package uk.me.webpigeon.rps;
 
-import java.util.Random;
-
 import uk.me.webpigeon.games.GameMove;
 
 public class RotationPlayer extends RpsAgent {
 	private int lastIndex;
 	private int rotValue;
-	private Random r = new Random();
 	
 	public RotationPlayer(int rotValue) {
 		this.rotValue = rotValue;
