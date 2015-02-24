@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import uk.me.webpigeon.rps.WinningPlayer;
-import uk.me.webpigeon.stats.RoundStats;
+import uk.me.webpigeon.stats.TwoPlayerStats;
 
 /**
  * Abstract game to make writing games as simple as possible.
@@ -23,15 +23,15 @@ public abstract class AbstractGame implements Game {
 		agents.add(agent);
 	}
 	
-	public List<RoundStats> getStats(int rounds){
+	public List<TwoPlayerStats> getStats(int rounds){
 		
-		List<RoundStats> statsList = new ArrayList<>();
+		List<TwoPlayerStats> statsList = new ArrayList<>();
 		
 		System.out.println("agents: "+agents);
 		
 		for (Agent player1 : agents) {
 			for (Agent player2 : agents) {
-				RoundStats stats = playRounds(player1, player2, rounds);
+				TwoPlayerStats stats = playRounds(player1, player2, rounds);
 				statsList.add(stats);
 			}
 		}
@@ -40,8 +40,8 @@ public abstract class AbstractGame implements Game {
 	}
 
 	@Override
-	public RoundStats playRounds(Agent agent1, Agent agent2, int runs) {
-		RoundStats stats = new RoundStats();
+	public TwoPlayerStats playRounds(Agent agent1, Agent agent2, int runs) {
+		TwoPlayerStats stats = new TwoPlayerStats();
 		
 		stats.player1 = agent1;
 		stats.player2 = agent2;

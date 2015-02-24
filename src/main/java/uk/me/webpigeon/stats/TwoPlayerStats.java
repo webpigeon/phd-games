@@ -2,7 +2,7 @@ package uk.me.webpigeon.stats;
 
 import uk.me.webpigeon.games.Agent;
 
-public class RoundStats {
+public class TwoPlayerStats {
 	private static final String STRING_FORMAT = "%s,%s,%f,%f,%d";
 	private static final String CSV_FORMAT = "%s,%s,%f,%f,%d";
 	

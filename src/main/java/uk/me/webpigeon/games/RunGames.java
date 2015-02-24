@@ -10,7 +10,7 @@ import uk.me.webpigeon.rps.FrequencyBlocker;
 import uk.me.webpigeon.rps.RockPaperScissors;
 import uk.me.webpigeon.rps.RotationPlayer;
 import uk.me.webpigeon.rps.UCBPlayer;
-import uk.me.webpigeon.stats.RoundStats;
+import uk.me.webpigeon.stats.TwoPlayerStats;
 
 public class RunGames {
 	
@@ -27,18 +27,18 @@ public class RunGames {
 		rps.addAgent(new FrequencyBlocker(RockPaperScissors.moves));
 		
 		//generate stats and dump them to csv
-		List<RoundStats> statsList = rps.getStats(1000);
+		List<TwoPlayerStats> statsList = rps.getStats(1000);
 		toCsvFile("test.csv",statsList);
 		
 		System.out.println(statsList);
 	}
 	
 	
-	public static void toCsvFile(String filename, List<RoundStats> statsList) throws FileNotFoundException {
+	public static void toCsvFile(String filename, List<TwoPlayerStats> statsList) throws FileNotFoundException {
 		PrintStream csv = new PrintStream(new FileOutputStream(filename));
 		
 		csv.println("player1,player2,player1Wins,player2Wins,draws");
-		for (RoundStats stats : statsList) {
+		for (TwoPlayerStats stats : statsList) {
 			csv.println(stats.toCSV());
 		}
 		
