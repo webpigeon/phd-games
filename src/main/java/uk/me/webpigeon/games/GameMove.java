@@ -1,6 +1,8 @@
 package uk.me.webpigeon.games;
 
-public class GameMove {
+import aima.core.agent.Action;
+
+public class GameMove implements Action {
 	private final int id;
 	private final String str;
 	
@@ -53,6 +55,11 @@ public class GameMove {
 		} else if (!str.equals(other.str))
 			return false;
 		return true;
+	}
+
+	@Override
+	public boolean isNoOp() {
+		return false;
 	}
 
 }
