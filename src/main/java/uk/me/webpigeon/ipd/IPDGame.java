@@ -1,5 +1,7 @@
 package uk.me.webpigeon.ipd;
 
+import java.util.Collections;
+
 import uk.me.webpigeon.games.AbstractGame;
 import uk.me.webpigeon.games.Agent;
 import uk.me.webpigeon.games.GameMove;
@@ -35,6 +37,11 @@ public class IPDGame extends AbstractGame {
 		agent2.onRoundEnd(p2Move, p1Move, scores[1]);
 		
 		return scores;
+	}
+	
+	@Override
+	public String toString() {
+		return "Iterated Prisoner's Dilemma";
 	}
 
 }

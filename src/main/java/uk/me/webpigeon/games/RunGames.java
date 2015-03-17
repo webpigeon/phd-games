@@ -15,7 +15,11 @@ public class RunGames {
 		List<TwoPlayerStats> statsList = game.getStats(ROUNDS_PER_GAME);
 		toCsvFile("test.csv",statsList);
 		
-		System.out.println(statsList);
+		System.out.println("game: "+game);
+		System.out.println("agents: "+game.getAgents());
+		for (TwoPlayerStats stats : statsList) {
+			System.out.println(stats);
+		}
 	}
 	
 	

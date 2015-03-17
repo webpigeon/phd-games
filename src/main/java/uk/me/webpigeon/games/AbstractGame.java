@@ -1,6 +1,8 @@
 package uk.me.webpigeon.games;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import uk.me.webpigeon.stats.TwoPlayerStats;
@@ -24,8 +26,6 @@ public abstract class AbstractGame implements Game {
 	public List<TwoPlayerStats> getStats(int rounds){
 		
 		List<TwoPlayerStats> statsList = new ArrayList<>();
-		
-		System.out.println("agents: "+agents);
 		
 		for (Agent player1 : agents) {
 			for (Agent player2 : agents) {
@@ -60,6 +60,11 @@ public abstract class AbstractGame implements Game {
 		}
 		
 		return stats;
+	}
+	
+	@Override
+	public Collection<Agent> getAgents() {
+		return Collections.unmodifiableCollection(agents);
 	}
 
 }

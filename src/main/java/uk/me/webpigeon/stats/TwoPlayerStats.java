@@ -3,7 +3,7 @@ package uk.me.webpigeon.stats;
 import uk.me.webpigeon.games.Agent;
 
 public class TwoPlayerStats {
-	private static final String STRING_FORMAT = "%s,%s,%f,%f,%d";
+	private static final String STRING_FORMAT = "%s (%.2f) vs %s (%.2f), draws: %d";
 	private static final String CSV_FORMAT = "%s,%s,%f,%f,%d";
 	
 	public Agent player1;
@@ -20,6 +20,6 @@ public class TwoPlayerStats {
 	
 	@Override
 	public String toString() {
-		return String.format(STRING_FORMAT, player1, player2, player1Score, player2Score, draws);
+		return String.format(STRING_FORMAT, player1, player1Score, player2, player2Score, draws);
 	}
 }
