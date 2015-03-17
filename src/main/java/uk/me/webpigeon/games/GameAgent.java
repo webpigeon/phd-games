@@ -1,6 +1,6 @@
 package uk.me.webpigeon.games;
 
-public interface Agent {
+public interface GameAgent {
 	
 	public String getName();
 

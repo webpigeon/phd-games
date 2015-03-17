@@ -1,8 +1,8 @@
 package uk.me.webpigeon.rps;
 
-import uk.me.webpigeon.games.Agent;
+import uk.me.webpigeon.games.GameAgent;
 
-public abstract class RpsAgent implements Agent {
+public abstract class RpsAgent implements GameAgent {
 	
 	public abstract String getName();
 	

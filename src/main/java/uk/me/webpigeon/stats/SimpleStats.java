@@ -5,17 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import uk.me.webpigeon.games.Agent;
+import uk.me.webpigeon.games.GameAgent;
 
 public class SimpleStats implements MultiAgentStats {
-	protected final Map<Agent, List<Double>> values;
+	protected final Map<GameAgent, List<Double>> values;
 	
 	public SimpleStats(){
 		this.values = new HashMap<>();
 	}
 
 	@Override
-	public void record(Agent agent, double result) {
+	public void record(GameAgent agent, double result) {
 		List<Double> results = values.get(agent);
 		if (results == null) {
 			results = new ArrayList<>();
@@ -26,7 +26,7 @@ public class SimpleStats implements MultiAgentStats {
 	}
 
 	@Override
-	public double getMean(Agent agent) {
+	public double getMean(GameAgent agent) {
 		List<Double> scores = values.get(agent);
 		
 		if (scores == null) {

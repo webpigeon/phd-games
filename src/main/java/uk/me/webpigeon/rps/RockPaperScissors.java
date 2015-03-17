@@ -1,7 +1,7 @@
 package uk.me.webpigeon.rps;
 
 import uk.me.webpigeon.games.AbstractGame;
-import uk.me.webpigeon.games.Agent;
+import uk.me.webpigeon.games.GameAgent;
 import uk.me.webpigeon.games.GameMove;
 
 public class RockPaperScissors extends AbstractGame {
@@ -31,7 +31,7 @@ public class RockPaperScissors extends AbstractGame {
 	}
 
 	@Override
-	public Double[] playRound(Agent agent1, Agent agent2) {
+	public Double[] playRound(GameAgent agent1, GameAgent agent2) {
 		GameMove p1Move = agent1.getMove(moves);
 		GameMove p2Move = agent2.getMove(moves);
 		Double[] scores = getScores(p1Move, p2Move);

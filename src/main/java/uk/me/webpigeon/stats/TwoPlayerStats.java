@@ -1,13 +1,13 @@
 package uk.me.webpigeon.stats;
 
-import uk.me.webpigeon.games.Agent;
+import uk.me.webpigeon.games.GameAgent;
 
 public class TwoPlayerStats {
 	private static final String STRING_FORMAT = "%s (%.2f) vs %s (%.2f), draws: %d";
 	private static final String CSV_FORMAT = "%s,%s,%f,%f,%d";
 	
-	public Agent player1;
-	public Agent player2;
+	public GameAgent player1;
+	public GameAgent player2;
 	
 	public double player1Score;
 	public double player2Score;

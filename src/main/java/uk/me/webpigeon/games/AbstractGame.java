@@ -12,14 +12,14 @@ import uk.me.webpigeon.stats.TwoPlayerStats;
  *
  */
 public abstract class AbstractGame implements Game {
-	private final List<Agent> agents;
+	private final List<GameAgent> agents;
 	
 	public AbstractGame() {
 		this.agents = new ArrayList<>();
 	}
 
 	@Override
-	public void addAgent(Agent agent) {
+	public void addAgent(GameAgent agent) {
 		agents.add(agent);
 	}
 	
@@ -27,8 +27,8 @@ public abstract class AbstractGame implements Game {
 		
 		List<TwoPlayerStats> statsList = new ArrayList<>();
 		
-		for (Agent player1 : agents) {
-			for (Agent player2 : agents) {
+		for (GameAgent player1 : agents) {
+			for (GameAgent player2 : agents) {
 				TwoPlayerStats stats = playRounds(player1, player2, rounds);
 				statsList.add(stats);
 			}
@@ -38,7 +38,7 @@ public abstract class AbstractGame implements Game {
 	}
 
 	@Override
-	public TwoPlayerStats playRounds(Agent agent1, Agent agent2, int runs) {
+	public TwoPlayerStats playRounds(GameAgent agent1, GameAgent agent2, int runs) {
 		TwoPlayerStats stats = new TwoPlayerStats();
 		
 		stats.player1 = agent1;
@@ -63,7 +63,7 @@ public abstract class AbstractGame implements Game {
 	}
 	
 	@Override
-	public Collection<Agent> getAgents() {
+	public Collection<GameAgent> getAgents() {
 		return Collections.unmodifiableCollection(agents);
 	}
 
