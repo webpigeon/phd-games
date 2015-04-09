@@ -21,9 +21,14 @@ public class World {
 	protected void createWorld() {
 		for (int i=0; i<cells.length; i++) {
 			cells[i] = new Cell();
+			cells[i].walkable = true;
 		}
 	}
 
+	public void setCellAt(int x, int y, Cell cell) {
+		cells[rowFirst(x,y, width)] = cell;
+	}
+	
 	public Collection<Entity> getEntities() {
 		return Collections.unmodifiableCollection(entities);
 	}
@@ -37,6 +42,10 @@ public class World {
 	}
 	
 	public Cell getCellAt(int x, int y) {
+		if (x < 0 || x >= width || y < 0 || y >= height) {
+			return null;
+		}
+		
 		return cells[rowFirst(x,y,width)];
 	}
 	
@@ -46,6 +55,14 @@ public class World {
 
 	public void addEntity(Entity entity) {
 		entities.add(entity);
+		entity.bind(this);
+	}
+
+	public void update() {
+		for (Entity entity : entities){
+			entity.update();
+		}
+		
 	}
 
 }

@@ -3,10 +3,12 @@ package uk.me.webpigeon.games.world;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 import javax.swing.JComponent;
+import javax.swing.Scrollable;
 
-public class WorldRenderer extends JComponent {
+public class WorldRenderer extends JComponent implements Scrollable {
 	public static final Integer TILE_SIZE = 32;
 	private static final long serialVersionUID = 1L;
 	private final World world;
@@ -37,8 +39,10 @@ public class WorldRenderer extends JComponent {
 		
 	}
 	
+	
+	
 	protected void paintTerrian(Cell cell, Graphics g) {
-		g.setColor(Color.GREEN);
+		g.setColor(cell.walkable?Color.GREEN:Color.BLUE);
 		g.fillRect(0, 0, TILE_SIZE, TILE_SIZE);
 	}
 	
@@ -47,4 +51,29 @@ public class WorldRenderer extends JComponent {
 		g.fillOval(entity.getX() * TILE_SIZE, entity.getY() * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 	}
 	
+	@Override
+	public int getScrollableBlockIncrement(Rectangle visibleRect, int orientation, int direction) {
+		return TILE_SIZE;
+	}
+
+	@Override
+	public Dimension getPreferredScrollableViewportSize() {
+		return new Dimension(TILE_SIZE * 20, TILE_SIZE * 20);
+	}
+
+	@Override
+	public boolean getScrollableTracksViewportHeight() {
+		return false;
+	}
+
+	@Override
+	public boolean getScrollableTracksViewportWidth() {
+		return false;
+	}
+
+	@Override
+	public int getScrollableUnitIncrement(Rectangle visibleRect,
+			int orientation, int direction) {
+		return TILE_SIZE;
+	}
 }
