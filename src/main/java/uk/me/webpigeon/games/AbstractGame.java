@@ -11,9 +11,11 @@ import uk.me.webpigeon.stats.TwoPlayerStats;
  */
 public abstract class AbstractGame implements Game {
 	private final List<Agent> agents;
+	private final GameLogger logger;
 	
-	public AbstractGame() {
+	public AbstractGame(GameLogger logger) {
 		this.agents = new ArrayList<>();
+		this.logger = logger;
 	}
 
 	@Override
@@ -61,5 +63,10 @@ public abstract class AbstractGame implements Game {
 		
 		return stats;
 	}
+	
+	protected void log(int turn, Agent agent1, GameMove a1Move, Agent agent2, GameMove a2Move) {
+		logger.log(turn, agent1, a1Move, agent2, a2Move);
+	}
+	
 
 }

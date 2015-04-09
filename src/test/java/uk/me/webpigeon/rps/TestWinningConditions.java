@@ -43,7 +43,7 @@ public class TestWinningConditions {
     	this.player1 = p1Move;
     	this.player2 = p2Move;
     	this.scores = scores;
-    	this.rps = new RockPaperScissors();
+    	this.rps = new RockPaperScissors(null);
     }
 
     @Test
