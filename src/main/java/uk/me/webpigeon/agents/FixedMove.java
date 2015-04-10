@@ -1,12 +1,13 @@
-package uk.me.webpigeon.rps;
+package uk.me.webpigeon.agents;
 
 import uk.me.webpigeon.games.GameMove;
+import uk.me.webpigeon.rps.RpsAgent;
 
 public class FixedMove extends RpsAgent {
-	private final GameMove move;
+	private final Integer move;
 
-	public FixedMove(GameMove move){
-		this.move = move;
+	public FixedMove(int moveID){
+		this.move = moveID;
 	}
 	
 	@Override
@@ -16,7 +17,7 @@ public class FixedMove extends RpsAgent {
 
 	@Override
 	public GameMove getMove(GameMove[] moves) {
-		return move;
+		return moves[move % moves.length];
 	}
 
 	@Override

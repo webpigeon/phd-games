@@ -1,24 +1,20 @@
 package uk.me.webpigeon.rps;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import uk.me.webpigeon.games.GameMove;
 
 public class UCBPlayer extends RpsAgent {
-	private GameMove[] legalMoves;
-	private int[] sims;
-	private int[] wins;
+	private Map<GameMove, Integer> sims;
+	private Map<GameMove, Integer> wins;
 	private int totalPlays;
 	private double expConst;
 	
-	public UCBPlayer(double expConst, GameMove[] legalMoves) {
+	public UCBPlayer(double expConst) {
 		this.expConst = expConst;
-		this.legalMoves = legalMoves;
-		this.sims = new int[legalMoves.length];
-		this.wins = new int[legalMoves.length];
-		
-		for (int i=0; i<sims.length; i++) {
-			sims[i] = 1;
-			wins[i] = 1;
-		}
+		this.sims = new HashMap<>();
+		this.wins = new HashMap<>();
 	}
 
 	@Override
@@ -28,8 +24,18 @@ public class UCBPlayer extends RpsAgent {
 	
 	//stolen from piers
 	public double getUCB(GameMove move) {
-		int index = move.getID();		
-		return (wins[index]*1.0)/sims[index] + (Math.sqrt(expConst * Math.log(totalPlays) / sims[index]));
+		Integer sims = this.sims.get(move);
+		Integer wins = this.wins.get(move);
+		
+		if (sims == null) {
+			sims = 1;
+		}
+		
+		if (wins == null) {
+			wins = 1;
+		}
+		
+		return (wins*1.0)/sims + (Math.sqrt(expConst * Math.log(totalPlays) / sims));
 	}
 
 	@Override
@@ -55,23 +61,27 @@ public class UCBPlayer extends RpsAgent {
 
 	@Override
 	public void onGameStart() {
-		this.sims = new int[legalMoves.length];
-		this.wins = new int[legalMoves.length];
-		this.totalPlays = sims.length;
-		
-		for (int i=0; i<sims.length; i++) {
-			sims[i] = 1;
-		}
+		sims.clear();
+		wins.clear();
+		totalPlays = 3; //TODO this isn't correct but zero breaks it
 	}
 
 	@Override
 	public void onRoundEnd(GameMove ours, GameMove theirs, double score) {
+		incMap(ours, sims);
 		
 		if (score >= 1) {
-			wins[ours.getID()]++;
+			incMap(ours, wins);
 		}
-		
-		sims[ours.getID()]++;
+		totalPlays++;
+	}
+	
+	private void incMap(GameMove move, Map<GameMove,Integer> map) {
+		Integer current = map.get(move);
+		if (current == null) {
+			current = 0;
+		}
+		sims.put(move, current+1);
 	}
 
 }

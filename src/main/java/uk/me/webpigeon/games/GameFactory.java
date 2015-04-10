@@ -1,41 +1,39 @@
 package uk.me.webpigeon.games;
 
+import uk.me.webpigeon.agents.FixedMove;
+import uk.me.webpigeon.agents.RandomMove;
+import uk.me.webpigeon.agents.RotationPlayer;
 import uk.me.webpigeon.ipd.IPDGame;
-import uk.me.webpigeon.rps.FixedMove;
 import uk.me.webpigeon.rps.FrequencyBlocker;
-import uk.me.webpigeon.rps.RandomMove;
+import uk.me.webpigeon.rps.FrequencyPredictor;
+import uk.me.webpigeon.rps.NaiveCounterAgent;
+import uk.me.webpigeon.rps.RandomPredictor;
 import uk.me.webpigeon.rps.RockPaperScissors;
-import uk.me.webpigeon.rps.RotationPlayer;
 import uk.me.webpigeon.rps.UCBPlayer;
 
 public class GameFactory {
 	
-	public static Game buildRPS() {
-		Game rps = new RockPaperScissors();
-		rps.addAgent(new FixedMove(RockPaperScissors.ROCK));
-		rps.addAgent(new FixedMove(RockPaperScissors.PAPER));
-		rps.addAgent(new FixedMove(RockPaperScissors.SCISSORS));
-		rps.addAgent(new RotationPlayer(1));
-		rps.addAgent(new RotationPlayer(2));
-		rps.addAgent(new RotationPlayer(3));
-		//rps.addAgent(new RandomMove());
-		rps.addAgent(new UCBPlayer(2.0, RockPaperScissors.moves));
-		rps.addAgent(new FrequencyBlocker(RockPaperScissors.moves));
-		
+	public static WebpigeonGame buildRPS() {
+		WebpigeonGame rps = new RockPaperScissors();
 		return rps;
 	}
 	
-	public static Game buildIPD() {
-		Game ipd = new IPDGame();
-		ipd.addAgent(new FixedMove(IPDGame.COOP));
-		ipd.addAgent(new FixedMove(IPDGame.DEFECT));
-		ipd.addAgent(new RotationPlayer(1));
-		ipd.addAgent(new RotationPlayer(2));
-		ipd.addAgent(new RandomMove());
-		ipd.addAgent(new UCBPlayer(2.0, IPDGame.MOVES));
-		//ipd.addAgent(new FrequencyBlocker(IPDGame.MOVES));
-		
+	public static WebpigeonGame buildIPD() {
+		WebpigeonGame ipd = new IPDGame();
 		return ipd;
 	}
 
+	public static void addAgents(WebpigeonGame game) {
+		game.addAgent(new FixedMove(0));
+		game.addAgent(new FixedMove(1));
+		game.addAgent(new FixedMove(2));
+		game.addAgent(new RotationPlayer(1));
+		game.addAgent(new RotationPlayer(2));
+		game.addAgent(new RotationPlayer(3));
+		game.addAgent(new UCBPlayer(2.0));
+		
+		game.addAgent(new NaiveCounterAgent(new RandomPredictor()));
+		game.addAgent(new NaiveCounterAgent(new FrequencyPredictor()));
+	}
+	
 }

@@ -1,6 +1,7 @@
-package uk.me.webpigeon.rps;
+package uk.me.webpigeon.agents;
 
 import uk.me.webpigeon.games.GameMove;
+import uk.me.webpigeon.rps.RpsAgent;
 
 public class RotationPlayer extends RpsAgent {
 	private int lastIndex;

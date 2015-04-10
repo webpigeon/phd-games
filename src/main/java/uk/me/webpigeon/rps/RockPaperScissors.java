@@ -1,5 +1,7 @@
 package uk.me.webpigeon.rps;
 
+import java.util.List;
+
 import uk.me.webpigeon.games.AbstractGame;
 import uk.me.webpigeon.games.GameAgent;
 import uk.me.webpigeon.games.GameMove;
@@ -43,6 +45,6 @@ public class RockPaperScissors extends AbstractGame {
 		
 		return scores;
 	}
-	
+
 
 }

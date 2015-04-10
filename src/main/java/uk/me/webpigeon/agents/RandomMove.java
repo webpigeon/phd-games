@@ -1,8 +1,9 @@
-package uk.me.webpigeon.rps;
+package uk.me.webpigeon.agents;
 
 import java.util.Random;
 
 import uk.me.webpigeon.games.GameMove;
+import uk.me.webpigeon.rps.RpsAgent;
 
 public class RandomMove extends RpsAgent {
 	private Random random;

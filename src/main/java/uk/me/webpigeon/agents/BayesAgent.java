@@ -3,6 +3,7 @@ package uk.me.webpigeon.agents;
 import uk.me.webpigeon.games.GameAgent;
 import uk.me.webpigeon.games.GameMove;
 import aima.core.probability.bayes.BayesianNetwork;
+import aima.core.probability.bayes.Node;
 import aima.core.probability.bayes.impl.BayesNet;
 
 public class BayesAgent implements GameAgent {

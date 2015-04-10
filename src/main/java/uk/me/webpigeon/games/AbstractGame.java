@@ -11,7 +11,7 @@ import uk.me.webpigeon.stats.TwoPlayerStats;
  * Abstract game to make writing games as simple as possible.
  *
  */
-public abstract class AbstractGame implements Game {
+public abstract class AbstractGame implements WebpigeonGame {
 	private final List<GameAgent> agents;
 	
 	public AbstractGame() {

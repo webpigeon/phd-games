@@ -11,7 +11,9 @@ public class RunGames {
 	public static final Integer ROUNDS_PER_GAME = 1000;
 	
 	public static void main(String[] args) throws FileNotFoundException {
-		Game game = GameFactory.buildIPD();
+		WebpigeonGame game = GameFactory.buildIPD();		
+		GameFactory.addAgents(game);
+		
 		List<TwoPlayerStats> statsList = game.getStats(ROUNDS_PER_GAME);
 		toCsvFile("test.csv",statsList);
 		

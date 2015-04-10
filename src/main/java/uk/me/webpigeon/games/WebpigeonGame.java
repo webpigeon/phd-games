@@ -5,7 +5,7 @@ import java.util.List;
 
 import uk.me.webpigeon.stats.TwoPlayerStats;
 
-public interface Game {
+public interface WebpigeonGame {
 
 	public void addAgent(GameAgent agent);
 	
