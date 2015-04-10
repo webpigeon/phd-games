@@ -8,12 +8,12 @@ import java.util.List;
 import uk.me.webpigeon.stats.TwoPlayerStats;
 
 public class RunGames {
-	public static final Integer ROUNDS_PER_GAME = 1000;
+	public static final Integer ROUNDS_PER_GAME = 20;
+	public static final Integer GAMES_PER_PAIR = 5000;
 	
 	public static void main(String[] args) throws FileNotFoundException {
 		WebpigeonGame game = GameFactory.buildIPD();		
 		GameFactory.addAgents(game);
-		
 		List<TwoPlayerStats> statsList = game.getStats(ROUNDS_PER_GAME);
 		toCsvFile("test.csv",statsList);
 		

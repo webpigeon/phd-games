@@ -1,8 +1,9 @@
-package uk.me.webpigeon.rps;
+package uk.me.webpigeon.games.agents;
 
 import uk.me.webpigeon.games.GameMove;
+import uk.me.webpigeon.rps.RpsAgent;
 
-public class FrequencyBlocker extends RpsAgent {
+public class FrequencyBlocker extends AbstractAgent {
 	private int[] freqs;
 	
 	public FrequencyBlocker(GameMove[] moves){
@@ -12,15 +13,6 @@ public class FrequencyBlocker extends RpsAgent {
 	@Override
 	public String getName() {
 		return "freqblock";
-	}
-
-	public String toString() {
-		return "rps-"+getName();
-	}
-	
-	public GameMove getOppMove(GameMove curr, GameMove[] legalMoves) {
-		int inverse = (curr.getID() + 1) % legalMoves.length;
-		return legalMoves[inverse];
 	}
 
 	@Override
@@ -36,7 +28,7 @@ public class FrequencyBlocker extends RpsAgent {
 		}
 		
 		GameMove oppBestMove = moves[bestOpt];
-		return getOppMove(oppBestMove, moves);
+		return bestCounter(oppBestMove, moves);
 	}
 
 	@Override

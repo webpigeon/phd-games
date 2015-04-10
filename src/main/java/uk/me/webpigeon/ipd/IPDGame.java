@@ -4,6 +4,7 @@ import java.util.Collections;
 
 import uk.me.webpigeon.games.AbstractGame;
 import uk.me.webpigeon.games.GameAgent;
+import uk.me.webpigeon.games.GameLogger;
 import uk.me.webpigeon.games.GameMove;
 
 public class IPDGame extends AbstractGame {
@@ -20,12 +21,17 @@ public class IPDGame extends AbstractGame {
 	private final static Double R = 2.0;
 	private final static Double P = 1.0;
 	private final static Double S = 0.0;
-
+	
 	//payoff list
 	private final Double[][][] payoffs = {
 			{{R,R}, {S,T}},
 			{{T,S}, {P,P}}
 	};
+	
+	public IPDGame(GameLogger logger) {
+		super(logger);
+		// TODO Auto-generated constructor stub
+	}
 	
 	@Override
 	public Double[] playRound(GameAgent agent1, GameAgent agent2) {
