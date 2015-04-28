@@ -21,9 +21,8 @@ public class WorldRunner {
 			world.addEntity(new StratergyEntity(10,10, new RandomPathfind()));
 		}
 		
-		for (int i=0; i<10; i++) {
-			world.addEntity(WorldFactory.buildFood(10, 10));
-		}
+		world.addEntity(WorldFactory.buildStalker(5, 5));
+		world.addEntity(WorldFactory.buildFood(10, 10));
 		
 		JComponent worldRenderer = new DebugWorldRenderer(world);
 		JScrollPane scroll = new JScrollPane(worldRenderer);

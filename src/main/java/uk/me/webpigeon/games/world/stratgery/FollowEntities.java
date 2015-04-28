@@ -10,7 +10,7 @@ import uk.me.webpigeon.games.world.Entity;
 import uk.me.webpigeon.games.world.World;
 import uk.me.webpigeon.games.world.ai.PathFinder;
 
-public class RandomPathfind implements Stratergy<Entity> {
+public class FollowEntities implements Stratergy<Entity> {
 	private Entity entity;
 	private Queue<Point> path;
 	private Random random;
@@ -23,9 +23,24 @@ public class RandomPathfind implements Stratergy<Entity> {
 	@Override
 	public void update(World world) {
 		if (path == null || path.isEmpty()) {
-			Point goal = new Point(random.nextInt(world.getWidth()), random.nextInt(world.getHeight()));
+			Collection<Entity> entities = world.getEntities(entity.getX(), entity.getY(), 10);
 			
-			path = PathFinder.getPath(world, entity.getPosition(), goal);
+			Entity target = null;
+			for (Entity entity : entities) {
+				if (entity.equals(this.entity)) {
+					continue;
+				}
+				
+				if (target == null || random.nextBoolean()) {
+					target = entity;
+				}
+			}
+			System.out.println("targeted "+target);
+			
+			if (target != null) {
+				Point goal = new Point(target.getX(), target.getY());
+				path = PathFinder.getPath(world, entity.getPosition(), goal);
+			}
 		}
 		
 		Point nextPos = path.poll();
@@ -44,6 +59,7 @@ public class RandomPathfind implements Stratergy<Entity> {
 	}
 
 	public String toString() {
-		return "walkBehavoiur";
+		return "stalkBehavour";
 	}
+	
 }

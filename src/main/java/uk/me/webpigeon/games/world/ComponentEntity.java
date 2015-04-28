@@ -22,9 +22,10 @@ public class ComponentEntity extends Entity {
 		component.onAttach(this);
 	}
 	
-	public void update() {
+	@Override
+	public void update(World world) {
 		for (Component component : components) {
-			component.update();
+			component.update(world);
 		}
 	}
 	

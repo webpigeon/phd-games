@@ -7,7 +7,12 @@ import uk.me.webpigeon.games.world.Cell;
 import uk.me.webpigeon.games.world.ComponentEntity;
 import uk.me.webpigeon.games.world.Entity;
 import uk.me.webpigeon.games.world.EntityRenderer;
+import uk.me.webpigeon.games.world.Shape;
+import uk.me.webpigeon.games.world.WalkableCost;
 import uk.me.webpigeon.games.world.World;
+import uk.me.webpigeon.games.world.stratgery.FollowEntities;
+import uk.me.webpigeon.games.world.stratgery.RandomPathfind;
+import uk.me.webpigeon.games.world.stratgery.StratergyEntity;
 
 public class WorldFactory {
 
@@ -27,9 +32,25 @@ public class WorldFactory {
 		return world;
 	}
 	
+	public static Entity buildWanderer(int x, int y) {
+		ComponentEntity entity = new StratergyEntity(x, y, new RandomPathfind());
+		entity.add(new EntityRenderer(Color.GRAY, Shape.CIRCLE));
+		entity.add(new WalkableCost());
+		return entity;
+	}
+	
+	
+	public static Entity buildStalker(int x, int y) {
+		ComponentEntity entity = new StratergyEntity(x, y, new FollowEntities());
+		entity.add(new EntityRenderer(Color.BLACK, Shape.CIRCLE));
+		entity.add(new WalkableCost());
+		return entity;
+	}
+	
 	public static Entity buildFood(int x, int y) {
 		ComponentEntity entity = new ComponentEntity(x, y);
-		entity.add(new EntityRenderer(new Color(85,174,58)));
+		entity.add(new EntityRenderer(new Color(85,174,58), Shape.SQUARE));
+		entity.add(new WalkableCost());
 		
 		return entity;
 	}

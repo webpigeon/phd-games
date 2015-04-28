@@ -37,11 +37,28 @@ public class NoiseGenerator {
 		
 		for (int i=0; i<grid.length; i++) {
 			for (int j=0; j<grid.length; j++) {
-				
-				
 				grid[i][j] = getAvg(grid, i, j, coords);
 			}
 		}
+	}
+	
+	public double getBetter(double[][] input, double[][] output,  int x, int y, int[][] kernel) {
+		double total = 0;
+		int validCoords = 0;
+		
+		for (int[] coord : kernel) {
+			int cX = x + coord[0];
+			int cY = y + coord[1];
+			
+			if (cX >= grid.length || cX < 0) continue;
+			if (cY >= grid[cX].length || cY < 0) continue;
+			
+			
+			total += grid[cX][cY];
+			validCoords++;
+		}
+		
+		return total / validCoords;
 	}
 	
 	public double getAvg(double[][] grid, int x, int y, int[][] coords) {

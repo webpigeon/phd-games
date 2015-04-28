@@ -8,9 +8,11 @@ import java.util.Collections;
 
 public class Entity implements Renderable {
 	protected Point position;
+	protected int health;
 	
 	public Entity(int x, int y) {
 		this.position = new Point(x, y);
+		this.health = 1;
 	}
 
 	public int getY() {
@@ -42,4 +44,8 @@ public class Entity implements Renderable {
 		g.fillOval(position.x * WorldRenderer.TILE_SIZE, position.y * WorldRenderer.TILE_SIZE, WorldRenderer.TILE_SIZE, WorldRenderer.TILE_SIZE);
 	}
 
+	public boolean isAlive() {
+		return health > 0;
+	}
+	
 }

@@ -3,6 +3,8 @@ package uk.me.webpigeon.games.world;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 public class World {
 	private Collection<Entity> entities;
@@ -58,10 +60,32 @@ public class World {
 	}
 
 	public void update() {
-		for (Entity entity : entities){
+		Iterator<Entity> entityItr = entities.iterator();
+		while(entityItr.hasNext()) {
+			Entity entity = entityItr.next();
 			entity.update(this);
+			if (!entity.isAlive()) {
+				entityItr.remove();
+			}
+		}
+	}
+	
+	public List<Entity> getEntities(int x, int y, double range) {
+		List<Entity> visibleEntities = new ArrayList<Entity>();
+		
+		for (Entity entity : entities) {
+			double distance = getDistance(x, y, entity.getX(), entity.getY());
+			
+			if (distance <= range) {
+				visibleEntities.add(entity);
+			}
 		}
 		
+		return visibleEntities;
+	}
+	
+	private double getDistance(int x1, int y1, int x2, int y2) {
+		return Math.abs(x1 - x2) + Math.abs(y1 - y2);
 	}
 
 }

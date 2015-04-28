@@ -24,4 +24,8 @@ public class StratergyEntity extends ComponentEntity {
 	public Collection<Point> getInterestingPoints() {
 		return strat.getPoints();
 	}
+	
+	public String toString() {
+		return "entity["+strat.toString()+"]";
+	}
 }
