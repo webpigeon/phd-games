@@ -55,12 +55,11 @@ public class World {
 
 	public void addEntity(Entity entity) {
 		entities.add(entity);
-		entity.bind(this);
 	}
 
 	public void update() {
 		for (Entity entity : entities){
-			entity.update();
+			entity.update(this);
 		}
 		
 	}

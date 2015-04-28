@@ -21,9 +21,8 @@ public class RandomPathfind implements Stratergy<Entity> {
 	}
 	
 	@Override
-	public void update() {
+	public void update(World world) {
 		if (path == null || path.isEmpty()) {
-			World world = entity.getWorld();
 			Point goal = new Point(random.nextInt(world.getWidth()), random.nextInt(world.getHeight()));
 			
 			path = PathFinder.getPath(world, entity.getPosition(), goal);

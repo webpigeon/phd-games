@@ -2,6 +2,7 @@ package uk.me.webpigeon.games.world;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.Collection;
 
@@ -20,7 +21,7 @@ public class DebugWorldRenderer extends WorldRenderer {
 	}
 	
 	@Override
-	protected void paintEntity(Entity entity, Graphics g) {
+	protected void paintEntity(Entity entity, Graphics2D g) {
 		super.paintEntity(entity, g);
 		
 		g.setColor(Color.WHITE);

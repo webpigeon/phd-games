@@ -1,12 +1,13 @@
 package uk.me.webpigeon.games.world;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.Collection;
 import java.util.Collections;
 
-public class Entity {
+public class Entity implements Renderable {
 	protected Point position;
-	protected World world;
 	
 	public Entity(int x, int y) {
 		this.position = new Point(x, y);
@@ -20,19 +21,11 @@ public class Entity {
 		return position.x;
 	}
 
-	public void update() {
+	public void update(World world) {
 	}
 	
 	public Collection<Point> getInterestingPoints() {
 		return Collections.emptyList();
-	}
-
-	public void bind(World world) {
-		this.world = world;		
-	}
-
-	public World getWorld() {
-		return world;
 	}
 
 	public Point getPosition() {
@@ -41,6 +34,12 @@ public class Entity {
 
 	public void move(Point nextPos) {
 		this.position = nextPos;
+	}
+
+	@Override
+	public void render(Graphics2D g) {
+		g.setColor(Color.GRAY);
+		g.fillOval(position.x * WorldRenderer.TILE_SIZE, position.y * WorldRenderer.TILE_SIZE, WorldRenderer.TILE_SIZE, WorldRenderer.TILE_SIZE);
 	}
 
 }

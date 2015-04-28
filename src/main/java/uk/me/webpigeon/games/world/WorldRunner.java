@@ -9,15 +9,20 @@ import javax.swing.JScrollPane;
 
 import uk.me.webpigeon.games.world.generators.WorldFactory;
 import uk.me.webpigeon.games.world.stratgery.RandomPathfind;
+import uk.me.webpigeon.games.world.stratgery.StratergyEntity;
 
 public class WorldRunner {
 	private static final Integer TICK_RATE = 100;
 
 	public static void main(String[] args) {
-		World world = WorldFactory.buildThresholdWorld(50, 50, 0.3);
+		World world = WorldFactory.buildTidyWorld(50, 50, 0.5);
 		
 		for (int i=0; i<10; i++) {
 			world.addEntity(new StratergyEntity(10,10, new RandomPathfind()));
+		}
+		
+		for (int i=0; i<10; i++) {
+			world.addEntity(WorldFactory.buildFood(10, 10));
 		}
 		
 		JComponent worldRenderer = new DebugWorldRenderer(world);
