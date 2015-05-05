@@ -6,6 +6,7 @@ import java.util.Collection;
 import uk.me.webpigeon.games.world.ComponentEntity;
 import uk.me.webpigeon.games.world.Entity;
 import uk.me.webpigeon.games.world.World;
+import uk.me.webpigeon.games.world.WorldView;
 
 public class StratergyEntity extends ComponentEntity {
 	private Stratergy<Entity> strat;
@@ -16,7 +17,8 @@ public class StratergyEntity extends ComponentEntity {
 		strat.bind(this);
 	}
 
-	public void update(World world) {
+	@Override
+	public void update(WorldView world) {
 		super.update(world);
 		strat.update(world);
 	}

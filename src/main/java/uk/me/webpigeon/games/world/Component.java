@@ -7,6 +7,6 @@ public abstract class Component {
 		this.entity = entity;
 	}
 	
-	public abstract void update(World world);
+	public abstract void update(WorldView world);
 	
 }

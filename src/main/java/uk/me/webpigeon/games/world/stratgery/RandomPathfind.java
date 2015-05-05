@@ -8,6 +8,7 @@ import java.util.Random;
 
 import uk.me.webpigeon.games.world.Entity;
 import uk.me.webpigeon.games.world.World;
+import uk.me.webpigeon.games.world.WorldView;
 import uk.me.webpigeon.games.world.ai.PathFinder;
 
 public class RandomPathfind implements Stratergy<Entity> {
@@ -21,7 +22,7 @@ public class RandomPathfind implements Stratergy<Entity> {
 	}
 	
 	@Override
-	public void update(World world) {
+	public void update(WorldView world) {
 		if (path == null || path.isEmpty()) {
 			Point goal = new Point(random.nextInt(world.getWidth()), random.nextInt(world.getHeight()));
 			

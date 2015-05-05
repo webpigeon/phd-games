@@ -9,11 +9,13 @@ import java.util.Map;
 import java.util.Queue;
 
 import uk.me.webpigeon.games.world.Cell;
+import uk.me.webpigeon.games.world.Entity;
 import uk.me.webpigeon.games.world.World;
+import uk.me.webpigeon.games.world.WorldView;
 
 public class PathFinder {
 
-	public static Queue<Point> getPath(World world, Point start, Point end) {
+	public static Queue<Point> getPath(WorldView world, Point start, Point end) {
     	List<Point> closedSet = new ArrayList<Point>();
     	List<Point> openSet = new ArrayList<Point>();
     	openSet.add(start);
@@ -66,7 +68,7 @@ public class PathFinder {
 		return path;
 	}
 	
-	public static List<Point> getAvailableMoves(Point point, World world){
+	public static List<Point> getAvailableMoves(Point point, WorldView world){
 		List<Point> nextActions = new ArrayList<Point>();
 		
 		Point[] possible = new Point[]{
@@ -79,7 +81,10 @@ public class PathFinder {
 		for (Point p : possible) {
 			Cell cell = world.getCellAt(p.x, p.y);
 			if (cell != null && cell.walkable) {
-				nextActions.add(p);
+				List<Entity> entities = world.getEntities(p.x, p.y, 0);
+				if (entities.isEmpty()) {
+					nextActions.add(p);
+				}
 			}
 		}
 		

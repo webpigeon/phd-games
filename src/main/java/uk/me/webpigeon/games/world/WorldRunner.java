@@ -24,8 +24,11 @@ public class WorldRunner {
 		world.addEntity(WorldFactory.buildStalker(5, 5));
 		world.addEntity(WorldFactory.buildFood(10, 10));
 		
-		JComponent worldRenderer = new DebugWorldRenderer(world);
+		WorldView obscured = new ObscuredWorld(world);
+		WorldRenderer worldRenderer = new DebugWorldRenderer(obscured);
 		JScrollPane scroll = new JScrollPane(worldRenderer);
+		
+		world.addEntity(WorldFactory.buildHuman(8, 8, worldRenderer, obscured), obscured);
 		
 		JFrame frame = new JFrame("Example World");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

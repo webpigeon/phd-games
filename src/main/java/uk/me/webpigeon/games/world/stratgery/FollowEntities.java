@@ -8,6 +8,7 @@ import java.util.Random;
 
 import uk.me.webpigeon.games.world.Entity;
 import uk.me.webpigeon.games.world.World;
+import uk.me.webpigeon.games.world.WorldView;
 import uk.me.webpigeon.games.world.ai.PathFinder;
 
 public class FollowEntities implements Stratergy<Entity> {
@@ -21,9 +22,12 @@ public class FollowEntities implements Stratergy<Entity> {
 	}
 	
 	@Override
-	public void update(World world) {
+	public void update(WorldView world) {
 		if (path == null || path.isEmpty()) {
 			Collection<Entity> entities = world.getEntities(entity.getX(), entity.getY(), 10);
+			if (entities == null) {
+				return;
+			}
 			
 			Entity target = null;
 			for (Entity entity : entities) {
@@ -35,8 +39,6 @@ public class FollowEntities implements Stratergy<Entity> {
 					target = entity;
 				}
 			}
-			System.out.println("targeted "+target);
-			
 			if (target != null) {
 				Point goal = new Point(target.getX(), target.getY());
 				path = PathFinder.getPath(world, entity.getPosition(), goal);

@@ -3,20 +3,24 @@ package uk.me.webpigeon.games.world;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
-public class World {
-	private Collection<Entity> entities;
+public class World implements WorldView {
+	private List<Entity> entities;
 	private Cell[] cells;
 	private int width;
 	private int height;
+	private Map<Entity, WorldView> views;
 	
 	public World(int width, int height) {
 		this.width = width;
 		this.height = height;
 		this.cells = new Cell[width*height];
 		this.entities = new ArrayList<>();
+		this.views = new HashMap<Entity, WorldView>();
 		createWorld();
 	}
 	
@@ -31,8 +35,8 @@ public class World {
 		cells[rowFirst(x,y, width)] = cell;
 	}
 	
-	public Collection<Entity> getEntities() {
-		return Collections.unmodifiableCollection(entities);
+	public List<Entity> getEntities() {
+		return Collections.unmodifiableList(entities);
 	}
 	
 	public int getWidth() {
@@ -55,15 +59,29 @@ public class World {
 		return y * width + x;
 	}
 
+	public void addEntity(Entity entity, WorldView view) {
+		entities.add(entity);
+		views.put(entity, view);
+		view.updateView(entity);
+	}
+	
 	public void addEntity(Entity entity) {
 		entities.add(entity);
 	}
 
+	public WorldView getViewFor(Entity entity) {
+		return views.getOrDefault(entity, this);
+	}
+	
 	public void update() {
 		Iterator<Entity> entityItr = entities.iterator();
 		while(entityItr.hasNext()) {
 			Entity entity = entityItr.next();
-			entity.update(this);
+			
+			WorldView view = views.get(entity);
+			view = view==null?this:view;
+			entity.update(view);
+			
 			if (!entity.isAlive()) {
 				entityItr.remove();
 			}
@@ -86,6 +104,15 @@ public class World {
 	
 	private double getDistance(int x1, int y1, int x2, int y2) {
 		return Math.abs(x1 - x2) + Math.abs(y1 - y2);
+	}
+
+	@Override
+	public void updateView(Entity entity) {
+	}
+
+	@Override
+	public boolean isVisible(int x, int y) {
+		return true;
 	}
 
 }

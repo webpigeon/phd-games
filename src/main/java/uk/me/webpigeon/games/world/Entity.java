@@ -23,7 +23,7 @@ public class Entity implements Renderable {
 		return position.x;
 	}
 
-	public void update(World world) {
+	public void update(WorldView world) {
 	}
 	
 	public Collection<Point> getInterestingPoints() {

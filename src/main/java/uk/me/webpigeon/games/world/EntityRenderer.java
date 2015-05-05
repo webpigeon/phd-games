@@ -29,7 +29,7 @@ public class EntityRenderer extends Component implements Renderable {
 	}
 
 	@Override
-	public void update(World world) {
+	public void update(WorldView world) {
 		// TODO Auto-generated method stub
 		
 	}

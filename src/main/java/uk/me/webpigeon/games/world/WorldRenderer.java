@@ -10,13 +10,12 @@ import javax.swing.JComponent;
 import javax.swing.Scrollable;
 
 public class WorldRenderer extends JComponent implements Scrollable {
-	public static final Color BG_WALKABLE = new Color(184, 134, 11);
-	public static final Color BG_NOT_WALKABLE = new Color(0, 204, 255);
+	private static final Color FOG = new Color(0, 0, 0, 150);
 	public static final Integer TILE_SIZE = 32;
 	private static final long serialVersionUID = 1L;
-	private final World world;
+	private final WorldView world;
 	
-	public WorldRenderer(World world) {
+	public WorldRenderer(WorldView world) {
 		this.world = world;
 		this.setPreferredSize(new Dimension(world.getWidth() * TILE_SIZE, world.getHeight() * TILE_SIZE));
 	}
@@ -26,6 +25,11 @@ public class WorldRenderer extends JComponent implements Scrollable {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
 		
+		Rectangle bounds = g2.getClipBounds();
+		
+		g2.setColor(Color.BLACK);
+		g2.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
+		
 		for (int x=0; x<world.getWidth(); x++) {
 			for (int y=0; y<world.getHeight(); y++) {
 				Cell cell = world.getCellAt(x, y);
@@ -33,7 +37,7 @@ public class WorldRenderer extends JComponent implements Scrollable {
 					continue;
 				}
 				
-				paintTerrian(cell, g.create(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE));
+				paintTerrian(cell, g.create(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE), !world.isVisible(x, y));
 			}
 		}
 		
@@ -43,11 +47,12 @@ public class WorldRenderer extends JComponent implements Scrollable {
 		
 	}
 	
-	
-	
-	protected void paintTerrian(Cell cell, Graphics g) {
-		g.setColor(cell.walkable?BG_WALKABLE:BG_NOT_WALKABLE);
-		g.fillRect(0, 0, TILE_SIZE, TILE_SIZE);
+	protected void paintTerrian(Cell cell, Graphics g, boolean remembered) {
+		cell.render(g);
+		if (remembered) {
+			g.setColor(FOG);
+			g.fillRect(0, 0, TILE_SIZE, TILE_SIZE);
+		}
 	}
 	
 	protected void paintEntity(Entity entity, Graphics2D g) {

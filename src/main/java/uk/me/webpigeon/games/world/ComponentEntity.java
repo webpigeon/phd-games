@@ -23,7 +23,7 @@ public class ComponentEntity extends Entity {
 	}
 	
 	@Override
-	public void update(World world) {
+	public void update(WorldView world) {
 		for (Component component : components) {
 			component.update(world);
 		}
