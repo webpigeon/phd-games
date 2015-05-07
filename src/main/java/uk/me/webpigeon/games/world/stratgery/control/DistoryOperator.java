@@ -15,7 +15,7 @@ public class DistoryOperator extends Operator {
 	}
 	
 	public boolean canApply(Cell cell, Collection<Entity> entities) {
-		return cell.walkable;
+		return cell != null && cell.walkable;
 	}
 
 	@Override
