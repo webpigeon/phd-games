@@ -15,10 +15,10 @@ import uk.me.webpigeon.planner.Plan;
 import uk.me.webpigeon.planner.Planner;
 import uk.me.webpigeon.planner.State;
 
-public class StripsPlanner implements Planner {
+public class StripsPlanner<T extends Operator> implements Planner<T> {
 
 	@Override
-	public Plan plan(List<Operator> operators, State s, State goal) {
+	public Plan plan(List<T> operators, State s, State goal) {
 		Plan p = new Plan();
 		
 			for (Atom goalAtom : goal.getAtoms()) {
@@ -49,7 +49,7 @@ public class StripsPlanner implements Planner {
 		return p;
 	}
 	
-	public List<Action> getRelevent(List<Operator> operators, Atom goalAtom) {
+	public List<Action> getRelevent(List<T> operators, Atom goalAtom) {
 		List<Action> actions = new ArrayList<Action>();
 		
 		for (Operator operator : operators) {

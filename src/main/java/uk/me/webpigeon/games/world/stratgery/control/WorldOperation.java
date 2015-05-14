@@ -7,11 +7,11 @@ import uk.me.webpigeon.games.world.Cell;
 import uk.me.webpigeon.games.world.Entity;
 import uk.me.webpigeon.games.world.WorldView;
 
-public abstract class Operator {
+public abstract class WorldOperation {
 	public String name;
 	public String command;
 	
-	public Operator(String name) {
+	public WorldOperation(String name) {
 		this.name = name;
 		this.command = name;
 	}

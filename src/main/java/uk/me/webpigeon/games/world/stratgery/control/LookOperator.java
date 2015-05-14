@@ -7,7 +7,7 @@ import uk.me.webpigeon.games.world.Cell;
 import uk.me.webpigeon.games.world.Entity;
 import uk.me.webpigeon.games.world.WorldView;
 
-public class LookOperator extends Operator {
+public class LookOperator extends WorldOperation {
 
 	public LookOperator() {
 		super("look");

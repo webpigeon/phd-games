@@ -8,7 +8,7 @@ import uk.me.webpigeon.games.world.Entity;
 import uk.me.webpigeon.games.world.World;
 import uk.me.webpigeon.games.world.WorldView;
 
-public class DistoryOperator extends Operator {
+public class DistoryOperator extends WorldOperation {
 	
 	public DistoryOperator() {
 		super("remove");

@@ -28,8 +28,10 @@ public class IternetCode {
 	  
 	  /**
 	   * quick dirty hack, CBA to twizzle, this will do.
+	   * 
 	   * @param source
 	   * @param size
+	   * 
 	   * @return
 	   */
 	  public static <T> List<List<T>> permute(List<T> source, int size) {

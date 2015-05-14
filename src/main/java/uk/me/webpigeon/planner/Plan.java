@@ -1,6 +1,7 @@
 package uk.me.webpigeon.planner;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -37,6 +38,10 @@ public class Plan {
 		Plan copyPlan = new Plan(this);
 		copyPlan.actions.add(action);
 		return copyPlan;
+	}
+	
+	public Iterator<Action> nextAction() {
+		return actions.iterator();
 	}
 	
 	@Override

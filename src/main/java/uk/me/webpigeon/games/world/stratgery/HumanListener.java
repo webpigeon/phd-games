@@ -22,7 +22,7 @@ import uk.me.webpigeon.games.world.stratgery.control.BuildOperator;
 import uk.me.webpigeon.games.world.stratgery.control.DistoryOperator;
 import uk.me.webpigeon.games.world.stratgery.control.LookOperator;
 import uk.me.webpigeon.games.world.stratgery.control.MoveOperator;
-import uk.me.webpigeon.games.world.stratgery.control.Operator;
+import uk.me.webpigeon.games.world.stratgery.control.WorldOperation;
 import uk.me.webpigeon.games.world.stratgery.control.OperatorStratergy;
 
 public class HumanListener implements MouseListener, ActionListener {
@@ -30,7 +30,7 @@ public class HumanListener implements MouseListener, ActionListener {
 	private final static Integer LOOK_BUTTON = MouseEvent.BUTTON2;
 	private final static Integer ACTION_BUTTON = MouseEvent.BUTTON3;
 	
-	private Map<String, Operator> actionSet;
+	private Map<String, WorldOperation> actionSet;
 	
 	private OperatorStratergy stratergy;
 	private WorldView world;
@@ -43,14 +43,14 @@ public class HumanListener implements MouseListener, ActionListener {
 		this.world = world;
 		this.actionList = new JPopupMenu();
 		
-		this.actionSet = new TreeMap<String, Operator>();
+		this.actionSet = new TreeMap<String, WorldOperation>();
 		addPossibleAction(new BuildOperator());
 		addPossibleAction(new DistoryOperator());
 		addPossibleAction(new LookOperator());
 		addPossibleAction(new MoveOperator());
 	}
 	
-	protected void addPossibleAction(Operator action) {
+	protected void addPossibleAction(WorldOperation action) {
 		actionSet.put(action.getCommand(), action);
 	}
 	
@@ -91,7 +91,7 @@ public class HumanListener implements MouseListener, ActionListener {
 	protected List<String> getLegalActions(Cell cell, Collection<Entity> entities) {
 		List<String> actions = new ArrayList<String>();
 		
-		for (Operator action : actionSet.values()) {
+		for (WorldOperation action : actionSet.values()) {
 			if (action.canApply(cell, entities)) {
 				actions.add(action.getCommand());
 			}
@@ -101,7 +101,7 @@ public class HumanListener implements MouseListener, ActionListener {
 	}
 
 	public void process(String key) {
-		Operator action = actionSet.get(key);
+		WorldOperation action = actionSet.get(key);
 		if (action != null) {
 			stratergy.setAction(action.apply(target));
 		}

@@ -30,21 +30,21 @@ public class Atom {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (obj == null) {
+			return false;
+		}
+		
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		
+		try {
+			Atom other = (Atom) obj;
+			return Arrays.equals(args, other.args) && predicate.equals(other.predicate);
+		} catch (ClassCastException ex) {
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Atom other = (Atom) obj;
-		if (!Arrays.equals(args, other.args))
-			return false;
-		if (predicate == null) {
-			if (other.predicate != null)
-				return false;
-		} else if (!predicate.equals(other.predicate))
-			return false;
-		return true;
+		}
+		
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import javax.swing.JScrollPane;
 import uk.me.webpigeon.games.world.generators.WorldFactory;
 import uk.me.webpigeon.games.world.stratgery.RandomPathfind;
 import uk.me.webpigeon.games.world.stratgery.StratergyEntity;
+import uk.me.webpigeon.planner.world.WorldPlannerFactory;
 
 public class WorldRunner {
 	private static final Integer TICK_RATE = 100;
@@ -23,6 +24,8 @@ public class WorldRunner {
 		
 		world.addEntity(WorldFactory.buildStalker(5, 5));
 		world.addEntity(WorldFactory.buildFood(10, 10));
+		
+		world.addEntity(WorldPlannerFactory.buildEntity(11, 11));
 		
 		WorldView obscured = new ObscuredWorld(world);
 		WorldRenderer worldRenderer = new DebugWorldRenderer(obscured);

@@ -8,7 +8,7 @@ import uk.me.webpigeon.games.world.Entity;
 import uk.me.webpigeon.games.world.World;
 import uk.me.webpigeon.games.world.WorldView;
 
-public class BuildOperator extends Operator {
+public class BuildOperator extends WorldOperation {
 	
 	public BuildOperator() {
 		super("build");

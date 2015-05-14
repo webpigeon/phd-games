@@ -8,7 +8,7 @@ import uk.me.webpigeon.games.world.Cell;
 import uk.me.webpigeon.games.world.Entity;
 import uk.me.webpigeon.games.world.WorldView;
 
-public class HarvestOperator extends Operator {
+public class HarvestOperator extends WorldOperation {
 		
 		public HarvestOperator() {
 			super("harvest");

@@ -12,7 +12,7 @@ import uk.me.webpigeon.games.world.World;
 import uk.me.webpigeon.games.world.WorldView;
 import uk.me.webpigeon.games.world.ai.PathFinder;
 
-public class MoveOperator extends Operator {
+public class MoveOperator extends WorldOperation {
 	
 	public MoveOperator() {
 		super("move");
