@@ -5,7 +5,7 @@ import java.util.Map;
 
 import uk.me.webpigeon.games.world.Cell;
 import uk.me.webpigeon.games.world.Entity;
-import uk.me.webpigeon.games.world.stratgery.control.WorldOperation;
+import uk.me.webpigeon.games.world.moves.WorldOperation;
 import uk.me.webpigeon.planner.Action;
 import uk.me.webpigeon.planner.Atom;
 import uk.me.webpigeon.planner.Operator;

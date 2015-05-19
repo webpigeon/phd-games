@@ -1,4 +1,4 @@
-package uk.me.webpigeon.games.world.stratgery.control;
+package uk.me.webpigeon.games.world.moves;
 
 import java.awt.Point;
 import java.util.Collection;

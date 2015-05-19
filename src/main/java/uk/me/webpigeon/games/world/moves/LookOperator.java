@@ -1,7 +1,8 @@
-package uk.me.webpigeon.games.world.stratgery.control;
+package uk.me.webpigeon.games.world.moves;
 
 import java.awt.Point;
 import java.util.Collection;
+import java.util.Collections;
 
 import uk.me.webpigeon.games.world.Cell;
 import uk.me.webpigeon.games.world.Entity;
@@ -37,11 +38,12 @@ public class LookOperator extends WorldOperation {
 		}
 	
 		@Override
-		public void tick(Entity entity, WorldView world) {
+		public Collection<String> tick(Entity entity, WorldView world) {
 			Cell cell = world.getCellAt(target.x, target.y);
 			Collection<Entity> entityList = world.getEntities(target.x, target.y, 1);
 			System.out.println(cell+", you see: "+entityList);
 			hasLooked = true;
+			return Collections.emptyList();
 		}
 	}
 

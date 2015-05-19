@@ -1,7 +1,10 @@
-package uk.me.webpigeon.games.world.stratgery.control;
+package uk.me.webpigeon.games.world.moves;
 
 import java.awt.Point;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import uk.me.webpigeon.games.world.Cell;
 import uk.me.webpigeon.games.world.Entity;
@@ -38,15 +41,16 @@ public class DistoryOperator extends WorldOperation {
 		}
 	
 		@Override
-		public void tick(Entity entity, WorldView world) {
+		public List<String> tick(Entity entity, WorldView world) {
 			if (ticksPassed < buildTime) {
 				ticksPassed++;
-				return;
+				return Arrays.asList("sound(x,y,hammer)");
 			}
 			
 			Cell cell = world.getCellAt(target.x, target.y);
 			cell.walkable = false;
 			ticksPassed++;
+			return Arrays.asList("cell(x,y,false)");
 		}
 	}
 	

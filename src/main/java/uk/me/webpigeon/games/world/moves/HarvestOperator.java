@@ -1,7 +1,8 @@
-package uk.me.webpigeon.games.world.stratgery.control;
+package uk.me.webpigeon.games.world.moves;
 
 import java.awt.Point;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import uk.me.webpigeon.games.world.Cell;
@@ -43,10 +44,10 @@ public class HarvestOperator extends WorldOperation {
 			}
 		
 			@Override
-			public void tick(Entity entity, WorldView world) {
+			public Collection<String> tick(Entity entity, WorldView world) {
 				if (ticksPassed < TaskTime) {
 					ticksPassed++;
-					return;
+					return Collections.emptyList();
 				}
 				
 				List<Entity> targetEntities = world.getEntities(target.x, target.y, 0);
@@ -54,6 +55,7 @@ public class HarvestOperator extends WorldOperation {
 					//TODO implement harvesting
 				}
 				ticksPassed++;
+				return Collections.emptyList();
 			}
 		}
 }

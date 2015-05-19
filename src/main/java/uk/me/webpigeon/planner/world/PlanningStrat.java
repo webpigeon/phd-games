@@ -7,7 +7,8 @@ import java.util.List;
 
 import uk.me.webpigeon.games.world.Entity;
 import uk.me.webpigeon.games.world.WorldView;
-import uk.me.webpigeon.games.world.stratgery.Stratergy;
+import uk.me.webpigeon.games.world.ai.strats.Stratergy;
+import uk.me.webpigeon.games.world.moves.OperInstance;
 import uk.me.webpigeon.planner.Action;
 import uk.me.webpigeon.planner.Atom;
 import uk.me.webpigeon.planner.Plan;
@@ -28,14 +29,9 @@ public class PlanningStrat implements Stratergy<Entity> {
 		this.operators = operators;
 		this.plan = null;
 	}
-	
-	@Override
-	public void bind(Entity target) {
-		this.entity = target;
-	}
 
 	@Override
-	public void update(WorldView world) {
+	public OperInstance update(Entity entity, WorldView world) {
 		if (plan == null || actionItr == null) {
 			WorldState state = new WorldState(world, entity);
 			
@@ -44,7 +40,7 @@ public class PlanningStrat implements Stratergy<Entity> {
 			
 			plan = planner.plan(operators, state, goal);
 			if (plan == null) {
-				return;
+				return null;
 			}
 			actionItr = plan.nextAction();
 			System.out.println(plan);
@@ -53,15 +49,10 @@ public class PlanningStrat implements Stratergy<Entity> {
 		if (!actionItr.hasNext()) {
 			plan = null;
 			actionItr = null;
-			return;
+			return null;
 		}
 		
 		currentAction = actionItr.next();
-	}
-
-	@Override
-	public Collection<Point> getPoints() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

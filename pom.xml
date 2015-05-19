@@ -25,6 +25,11 @@
       <artifactId>aima-core</artifactId>
       <version>0.11.1</version>
   	</dependency>
+	<dependency>
+	    <groupId>org.gerryai</groupId>
+	    <artifactId>pddl-parser</artifactId>
+	    <version>1.0-SNAPSHOT</version>
+	</dependency>
 	  <dependency>
 		<groupId>junit</groupId>
 		<artifactId>junit</artifactId>

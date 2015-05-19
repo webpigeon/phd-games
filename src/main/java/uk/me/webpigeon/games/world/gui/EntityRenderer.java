@@ -1,7 +1,11 @@
-package uk.me.webpigeon.games.world;
+package uk.me.webpigeon.games.world.gui;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+
+import uk.me.webpigeon.games.world.Component;
+import uk.me.webpigeon.games.world.Shape;
+import uk.me.webpigeon.games.world.WorldView;
 
 public class EntityRenderer extends Component implements Renderable {
 	private final Color colour;

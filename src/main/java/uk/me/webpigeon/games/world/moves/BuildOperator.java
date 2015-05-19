@@ -1,7 +1,9 @@
-package uk.me.webpigeon.games.world.stratgery.control;
+package uk.me.webpigeon.games.world.moves;
 
 import java.awt.Point;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 
 import uk.me.webpigeon.games.world.Cell;
 import uk.me.webpigeon.games.world.Entity;
@@ -41,15 +43,21 @@ public class BuildOperator extends WorldOperation {
 		}
 	
 		@Override
-		public void tick(Entity entity, WorldView world) {
+		public Collection<String> tick(Entity entity, WorldView world) {
 			if (ticksPassed < buildTime) {
 				ticksPassed++;
-				return;
+				return Arrays.asList("sound(x,y,hammer)");
 			}
 			
 			Cell cell = world.getCellAt(target.x, target.y);
 			cell.walkable = true;
 			ticksPassed++;
+			return Arrays.asList("cell(x,y,true)");
+		}
+		
+		@Override
+		public String toString() {
+			return "build("+target.getX()+","+target.getY()+")";
 		}
 	}
 	

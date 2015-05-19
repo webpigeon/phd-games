@@ -3,6 +3,8 @@ package uk.me.webpigeon.games.world;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import uk.me.webpigeon.games.world.gui.WorldRenderer;
+
 public class Cell {
 	public static final Color BG_WALKABLE = new Color(184, 134, 11);
 	public static final Color BG_NOT_WALKABLE = new Color(0, 204, 255);

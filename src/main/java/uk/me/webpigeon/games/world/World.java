@@ -8,12 +8,18 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import uk.me.webpigeon.games.world.ai.Agent;
+import uk.me.webpigeon.games.world.moves.OperInstance;
+import uk.me.webpigeon.planner.Action;
+
 public class World implements WorldView {
 	private List<Entity> entities;
 	private Cell[] cells;
 	private int width;
 	private int height;
 	private Map<Entity, WorldView> views;
+	private List<Agent> agents;
+	private Map<Entity, List<String>> percepts;
 	
 	public World(int width, int height) {
 		this.width = width;
@@ -21,6 +27,8 @@ public class World implements WorldView {
 		this.cells = new Cell[width*height];
 		this.entities = new ArrayList<>();
 		this.views = new HashMap<Entity, WorldView>();
+		this.agents = new ArrayList<Agent>();
+		this.percepts = new HashMap<>();
 		createWorld();
 	}
 	
@@ -59,14 +67,21 @@ public class World implements WorldView {
 		return y * width + x;
 	}
 
-	public void addEntity(Entity entity, WorldView view) {
-		entities.add(entity);
-		views.put(entity, view);
-		view.updateView(entity);
-	}
-	
 	public void addEntity(Entity entity) {
 		entities.add(entity);
+	}
+	
+	public WorldView addAgent(Entity entity, Agent controller) {
+		WorldView view = new ObscuredWorld(this);
+		controller.setWorldView(view);
+		agents.add(controller);
+		views.put(entity, view);
+		
+		view.updateView(entity);
+		percepts.put(entity, new ArrayList<String>());
+		addEntity(entity);
+		
+		return view;
 	}
 
 	public WorldView getViewFor(Entity entity) {
@@ -85,6 +100,27 @@ public class World implements WorldView {
 			if (!entity.isAlive()) {
 				entityItr.remove();
 			}
+		}
+		
+		for (Agent agent : agents) {
+			List<String> perceptList = percepts.getOrDefault(agent.getEntity(), Collections.emptyList());
+			
+			OperInstance action = agent.getAction(perceptList);
+			perceptList.clear();
+			
+			if (action != null) {
+				Collection<String> actionPercepts = action.tick(agent.getEntity(), this);
+				updatePercepts(actionPercepts);
+			}
+			
+			WorldView view = views.getOrDefault(agent.getEntity(), this);
+			view.updateView(agent.getEntity());
+		}
+	}
+	
+	private void updatePercepts(Collection<String> newPercepts) {
+		for (List<String> perceptList : percepts.values()) {
+			perceptList.addAll(newPercepts);
 		}
 	}
 	

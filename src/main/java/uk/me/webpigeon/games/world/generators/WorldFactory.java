@@ -6,18 +6,15 @@ import java.util.Random;
 import uk.me.webpigeon.games.world.Cell;
 import uk.me.webpigeon.games.world.ComponentEntity;
 import uk.me.webpigeon.games.world.Entity;
-import uk.me.webpigeon.games.world.EntityRenderer;
 import uk.me.webpigeon.games.world.Shape;
 import uk.me.webpigeon.games.world.WalkableCost;
 import uk.me.webpigeon.games.world.World;
-import uk.me.webpigeon.games.world.WorldRenderer;
-import uk.me.webpigeon.games.world.WorldView;
-import uk.me.webpigeon.games.world.stratgery.FollowEntities;
-import uk.me.webpigeon.games.world.stratgery.HumanListener;
-import uk.me.webpigeon.games.world.stratgery.RandomPathfind;
-import uk.me.webpigeon.games.world.stratgery.Stratergy;
-import uk.me.webpigeon.games.world.stratgery.StratergyEntity;
-import uk.me.webpigeon.games.world.stratgery.control.OperatorStratergy;
+import uk.me.webpigeon.games.world.ai.Agent;
+import uk.me.webpigeon.games.world.ai.HumanListener;
+import uk.me.webpigeon.games.world.ai.SingleStratAgent;
+import uk.me.webpigeon.games.world.ai.strats.FollowEntities;
+import uk.me.webpigeon.games.world.ai.strats.RandomPathfind;
+import uk.me.webpigeon.games.world.gui.EntityRenderer;
 
 public class WorldFactory {
 
@@ -37,29 +34,20 @@ public class WorldFactory {
 		return world;
 	}
 	
-	public static Entity buildWanderer(int x, int y) {
-		ComponentEntity entity = buildEntity(x, y, Color.GRAY, new RandomPathfind());
-		entity.add(new WalkableCost());
-		return entity;
+	public static Agent buildWanderer(Entity entity) {
+		return new SingleStratAgent(entity, new RandomPathfind());
 	}
 	
 	
-	public static Entity buildStalker(int x, int y) {
-		ComponentEntity entity = buildEntity(x, y, Color.BLACK, new FollowEntities());
-		entity.add(new WalkableCost());
-		return entity;
+	public static Agent buildStalker(Entity entity) {
+		return new SingleStratAgent(entity, new FollowEntities());
 	}
 	
-	public static ComponentEntity buildEntity(int x, int y, Color color, Stratergy<Entity> behaviour) {
-		ComponentEntity entity = new StratergyEntity(x, y, behaviour);
+	public static ComponentEntity buildEntity(int x, int y, Color color) {
+		ComponentEntity entity = new ComponentEntity(x, y);
 		entity.add(new EntityRenderer(color, Shape.CIRCLE));
+		entity.add(new WalkableCost());
 		return entity;
-	}
-	
-	public static Entity buildHuman(int x, int y, WorldRenderer renderer, WorldView world) {
-		OperatorStratergy controlled = new OperatorStratergy();
-		renderer.addMouseListener(new HumanListener(controlled, world));	
-		return buildEntity(x, y, Color.WHITE, controlled);
 	}
 	
 	public static Entity buildFood(int x, int y) {
@@ -106,6 +94,10 @@ public class WorldFactory {
 	public static double[][] buildRandomSeed(int width, int height) {
 		double[][] grid  = new double[width][height];
 		return grid;
+	}
+
+	public static HumanListener buildHumanAgent(Entity humanEntity) {
+		return new HumanListener(humanEntity);
 	}
 	
 

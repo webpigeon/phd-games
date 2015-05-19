@@ -13,6 +13,9 @@ import uk.me.webpigeon.games.world.Entity;
 import uk.me.webpigeon.games.world.World;
 import uk.me.webpigeon.games.world.WorldView;
 
+/**
+ * An implementation of A* for path finding
+ */
 public class PathFinder {
 
 	public static Queue<Point> getPath(WorldView world, Point start, Point end) {

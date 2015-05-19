@@ -1,4 +1,4 @@
-package uk.me.webpigeon.games.world;
+package uk.me.webpigeon.games.world.gui;
 
 import java.awt.Graphics2D;
 

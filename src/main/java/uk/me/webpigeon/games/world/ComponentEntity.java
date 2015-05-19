@@ -4,6 +4,8 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import uk.me.webpigeon.games.world.gui.Renderable;
+
 public class ComponentEntity extends Entity {
 	private final Collection<Component> components;
 	private final Collection<Renderable> renderables;
@@ -36,4 +38,8 @@ public class ComponentEntity extends Entity {
 		}
 	}
 
+	public String toString() {
+		return "ComponentEntity";
+	}
+	
 }

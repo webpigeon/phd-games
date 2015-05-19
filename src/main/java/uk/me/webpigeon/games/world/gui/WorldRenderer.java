@@ -1,4 +1,4 @@
-package uk.me.webpigeon.games.world;
+package uk.me.webpigeon.games.world.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,6 +8,10 @@ import java.awt.Rectangle;
 
 import javax.swing.JComponent;
 import javax.swing.Scrollable;
+
+import uk.me.webpigeon.games.world.Cell;
+import uk.me.webpigeon.games.world.Entity;
+import uk.me.webpigeon.games.world.WorldView;
 
 public class WorldRenderer extends JComponent implements Scrollable {
 	private static final Color FOG = new Color(0, 0, 0, 150);

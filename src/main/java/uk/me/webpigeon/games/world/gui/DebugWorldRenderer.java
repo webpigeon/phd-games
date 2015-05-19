@@ -1,10 +1,14 @@
-package uk.me.webpigeon.games.world;
+package uk.me.webpigeon.games.world.gui;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.Collection;
+
+import uk.me.webpigeon.games.world.Cell;
+import uk.me.webpigeon.games.world.Entity;
+import uk.me.webpigeon.games.world.WorldView;
 
 public class DebugWorldRenderer extends WorldRenderer {
 	private static final long serialVersionUID = 1L;

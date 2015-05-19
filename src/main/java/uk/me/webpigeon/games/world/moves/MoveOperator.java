@@ -1,7 +1,9 @@
-package uk.me.webpigeon.games.world.stratgery.control;
+package uk.me.webpigeon.games.world.moves;
 
 import java.awt.Point;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -41,11 +43,10 @@ public class MoveOperator extends WorldOperation {
 		}
 	
 		@Override
-		public void tick(Entity entity, WorldView world) {
+		public List<String> tick(Entity entity, WorldView world) {
 			if (path == null) {
 				path = PathFinder.getPath(world, entity.getPosition(), target);
 				if (path == null || path.isEmpty()) {
-					System.out.println("I don't know how to get there, canceling action");
 					target = null;
 				}
 			}
@@ -53,10 +54,20 @@ public class MoveOperator extends WorldOperation {
 			Point nextPoint = path.poll();
 			if (nextPoint == null) {
 				path = null;
-				return;
+				return Collections.emptyList();
 			}
+			
 			entity.move(nextPoint);
 			world.updateView(entity);
+			return Arrays.asList("at("+entity+","+nextPoint.getX()+","+nextPoint.getY()+")");
+		}
+		
+		public String toString() {
+			if (target == null) {
+				return "walk to nowhere";
+			}
+			
+			return "walk to ("+target.getX()+","+target.getY()+")";
 		}
 	}
 	

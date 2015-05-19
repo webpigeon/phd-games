@@ -1,10 +1,10 @@
-package uk.me.webpigeon.games.world.stratgery;
+package uk.me.webpigeon.games.world.ai;
 
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -16,31 +16,31 @@ import javax.swing.JPopupMenu;
 
 import uk.me.webpigeon.games.world.Cell;
 import uk.me.webpigeon.games.world.Entity;
-import uk.me.webpigeon.games.world.WorldRenderer;
 import uk.me.webpigeon.games.world.WorldView;
-import uk.me.webpigeon.games.world.stratgery.control.BuildOperator;
-import uk.me.webpigeon.games.world.stratgery.control.DistoryOperator;
-import uk.me.webpigeon.games.world.stratgery.control.LookOperator;
-import uk.me.webpigeon.games.world.stratgery.control.MoveOperator;
-import uk.me.webpigeon.games.world.stratgery.control.WorldOperation;
-import uk.me.webpigeon.games.world.stratgery.control.OperatorStratergy;
+import uk.me.webpigeon.games.world.gui.WorldRenderer;
+import uk.me.webpigeon.games.world.moves.BuildOperator;
+import uk.me.webpigeon.games.world.moves.DistoryOperator;
+import uk.me.webpigeon.games.world.moves.LookOperator;
+import uk.me.webpigeon.games.world.moves.MoveOperator;
+import uk.me.webpigeon.games.world.moves.OperInstance;
+import uk.me.webpigeon.games.world.moves.WorldOperation;
 
-public class HumanListener implements MouseListener, ActionListener {
+public class HumanListener extends MouseAdapter implements Agent, ActionListener {
 	private final static Integer MOVE_BUTTON = MouseEvent.BUTTON1;
 	private final static Integer LOOK_BUTTON = MouseEvent.BUTTON2;
 	private final static Integer ACTION_BUTTON = MouseEvent.BUTTON3;
 	
 	private Map<String, WorldOperation> actionSet;
 	
-	private OperatorStratergy stratergy;
+	private Entity entity;
 	private WorldView world;
 	private JPopupMenu actionList;
 	
 	private Point target;
+	private OperInstance currAction;
 	
-	public HumanListener(OperatorStratergy stratergy, WorldView world) {
-		this.stratergy = stratergy;
-		this.world = world;
+	public HumanListener(Entity entity) {
+		this.entity = entity;
 		this.actionList = new JPopupMenu();
 		
 		this.actionSet = new TreeMap<String, WorldOperation>();
@@ -103,38 +103,34 @@ public class HumanListener implements MouseListener, ActionListener {
 	public void process(String key) {
 		WorldOperation action = actionSet.get(key);
 		if (action != null) {
-			stratergy.setAction(action.apply(target));
+			currAction = action.apply(target);
 		}
 	}
 	
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		System.out.println("you clicked "+arg0.getActionCommand());
 		process(arg0.getActionCommand());
+	}
+
+	@Override
+	public OperInstance getAction(List<String> percepts) {
+		
+		if (currAction != null && currAction.isComplete()) {
+			currAction = null;
+		}
+		
+		return currAction;
+	}
+
+	@Override
+	public Entity getEntity() {
+		return entity;
+	}
+
+	@Override
+	public void setWorldView(WorldView view) {
+		this.world = view;		
 	}
 
 }

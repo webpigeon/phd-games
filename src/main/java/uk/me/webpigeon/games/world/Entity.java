@@ -6,6 +6,9 @@ import java.awt.Point;
 import java.util.Collection;
 import java.util.Collections;
 
+import uk.me.webpigeon.games.world.gui.Renderable;
+import uk.me.webpigeon.games.world.gui.WorldRenderer;
+
 public class Entity implements Renderable {
 	protected Point position;
 	protected int health;

@@ -7,10 +7,10 @@ import java.util.List;
 import uk.me.webpigeon.games.world.ComponentEntity;
 import uk.me.webpigeon.games.world.Entity;
 import uk.me.webpigeon.games.world.generators.WorldFactory;
-import uk.me.webpigeon.games.world.stratgery.control.BuildOperator;
-import uk.me.webpigeon.games.world.stratgery.control.DistoryOperator;
-import uk.me.webpigeon.games.world.stratgery.control.MoveOperator;
-import uk.me.webpigeon.games.world.stratgery.control.WorldOperation;
+import uk.me.webpigeon.games.world.moves.BuildOperator;
+import uk.me.webpigeon.games.world.moves.DistoryOperator;
+import uk.me.webpigeon.games.world.moves.MoveOperator;
+import uk.me.webpigeon.games.world.moves.WorldOperation;
 import uk.me.webpigeon.planner.Operator;
 import uk.me.webpigeon.planner.Planner;
 import uk.me.webpigeon.planner.strips.StripsPlanner;
@@ -32,7 +32,7 @@ public class WorldPlannerFactory {
 	public static Entity buildEntity(int x, int y) {
 		Planner<GameOperator> planner = buildStrips();
 		PlanningStrat plannerStrat = new PlanningStrat(planner, buildOpers());
-		return WorldFactory.buildEntity(x, y, Color.GREEN, plannerStrat);
+		return WorldFactory.buildEntity(x, y, Color.GREEN);
 	}
 	
 }
